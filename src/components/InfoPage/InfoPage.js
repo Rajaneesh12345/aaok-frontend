@@ -208,16 +208,16 @@ const InfoPage = props => {
 		</>
 	);
 	const clusterType = info => {
-		if (info['IsAgnaticAssociativeCluster']) {
+		if (+info['IsAgnaticAssociativeCluster']) {
 			return 'Agnatic-associative Cluster';
 		}
-		if (info['IsAgnaticCluster']) {
+		if (+info['IsAgnaticCluster']) {
 			return 'Agnatic Cluster';
 		}
-		if (info['IsAssociateCluster']) {
+		if (+info['IsAssociateCluster']) {
 			return 'Associative Cluster';
 		}
-		if (info['IsSingleName']) {
+		if (+info['IsSingleName']) {
 			return 'Single Name';
 		}
 	};
