@@ -1,7 +1,6 @@
 import './InfoPage.css';
 import {
 	getIndividualInfo,
-	getNumberOfLayers,
 	getOthersInCluster,
 	getRelated,
 } from '../../services/api';
@@ -21,9 +20,6 @@ const InfoPage = props => {
 	const [showImgModal, setShowImgModal] = useState(false);
 	const [inCluster, setInCluster] = useState(null);
 	const [inClusterIsLoading, setInClusterIsLoading] = useState(false);
-	const [numberOfLayers, setNumberOfLayers] = useState(null);
-	const [numberOfLayersIsLoading, setNumberOfLayersIsLoading] =
-		useState(false);
 	const [isRelated, setIsRelated] = useState(null);
 	const [isRelatedIsLoading, setIsRelatedIsLoading] = useState(false);
 	const { setAdjacentPersonIds, adjacentResults } = props;
@@ -108,31 +104,7 @@ const InfoPage = props => {
 		};
 		asyncEffect();
 	}, [individualInfo]);
-	useEffect(() => {
-		const asyncEffect = async () => {
-			if (individualInfo) {
-				try {
-					setNumberOfLayersIsLoading(true);
-					const [data, err] = await getNumberOfLayers(
-						individualInfo['ContainedInCluster']
-					);
-					// console.log(data);
-					if (err) {
-						setNumberOfLayersIsLoading(false);
-						setNumberOfLayers(null);
-						return;
-					}
-					setNumberOfLayersIsLoading(false);
-					setNumberOfLayers(data?.[0] ? data[0]['count(*)'] : null);
-				} catch (e) {
-					setNumberOfLayersIsLoading(false);
-					setNumberOfLayers(null);
-					throw e;
-				}
-			}
-		};
-		asyncEffect();
-	}, [individualInfo]);
+
 	useEffect(() => {
 		const asyncEffect = async () => {
 			if (individualInfo) {
@@ -236,16 +208,18 @@ const InfoPage = props => {
 		</>
 	);
 	const clusterType = info => {
-		if (info['IsAgnatic'] && info['IsAssociative']) {
+		if (info['IsAgnaticAssociativeCluster']) {
 			return 'Agnatic-associative Cluster';
 		}
-		if (info['IsAgnatic']) {
+		if (info['IsAgnaticCluster']) {
 			return 'Agnatic Cluster';
 		}
-		if (info['IsAssociative']) {
+		if (info['IsAssociateCluster']) {
 			return 'Associative Cluster';
 		}
-		return 'Single Name';
+		if (info['IsSingleName']) {
+			return 'Single Name';
+		}
 	};
 	return (
 		<LargePage>

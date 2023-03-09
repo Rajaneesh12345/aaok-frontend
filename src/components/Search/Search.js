@@ -1007,17 +1007,18 @@ const Search = props => {
 
 function ResultRow(props) {
 	const clusterType = row => {
-		// console.log(row);
-		if (row['IsAgnaticAssociative']) {
+		if (row['IsAgnaticAssociativeCluster']) {
 			return 'Agnatic-associative Cluster';
 		}
-		if (row['IsAgnatic']) {
+		if (row['IsAgnaticCluster']) {
 			return 'Agnatic Cluster';
 		}
-		if (row['IsAssociative']) {
+		if (row['IsAssociateCluster']) {
 			return 'Associative Cluster';
 		}
-		return 'Single Name';
+		if (row['IsSingleName']) {
+			return 'Single Name';
+		}
 	};
 	const check = field => (field === null ? 'N/A' : field);
 
