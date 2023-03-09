@@ -6,6 +6,7 @@ const url = 'https://aaokbackend.onrender.com';
 
 const getSearchResults = async (filters, sortOption) => {
 	// console.log('getSearchResults', filters);
+
 	let filtersAsArrays = {};
 	Object.keys(filters.advancedFilters).forEach(key => {
 		if (filters.advancedFilters[key].length > 0) {
